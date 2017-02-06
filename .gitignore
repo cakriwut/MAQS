@@ -24,6 +24,8 @@ bld/
 
 # Sandcastle build
 [Ww]orking/
+[Dd]ocumentation/[Hh]elp/*
+*.chm
 
 # Visual Studio 2015 cache/options directory
 .vs/
@@ -164,6 +166,7 @@ PublishScripts/
 # NuGet v3's project.json files produces more ignoreable files
 *.nuget.props
 *.nuget.targets
+nuget.exe
 
 # Microsoft Azure Build Output
 csx/
@@ -253,4 +256,3 @@ paket-files/
 # JetBrains Rider
 .idea/
 *.sln.iml
-/Framework/.nuget/NuGet.exe

@@ -21,12 +21,11 @@ The main idea behind MAQS is to avoid **reinventing the wheel**. Most automation
     4. [Action Builder](ActionBuilder.MD)
     5. [Element Handler](ElementHandler.MD)
     6. [Configurations](Configurations.MD)
-5. [Contributing & Development](#Contributing)
-7. [License](#License)
+6. [License](#License)
 
 
 ##Installation
-Read our [installation guide]() for installing the MAQS Framework.
+Read our [installation guide](Installation.MD) for installing the MAQS Framework.
 ##Usage
 MAQS is a test automation accelerator, meaning it is used to quickly create new auotmated tests.  MAQS is a modular test automation framework which can be used as the base for your automation project or individual pieces can be used to enhance existing frameworks.​
 ##License

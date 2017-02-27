@@ -9,14 +9,12 @@ The MAQS Visual Studio Extension contains a collection of templates for NUnit, V
 
 ## MAQS NuGet Package
 In the package manage console write:
-(screenshot here)
 ```
-PM Installer
+install-package Magenic.Open.Maqs
 ```
 Or install with the NuGet package manager:
-(screenshot here)
 ```
-NuGet
+nuget.exe install Magenic.Open.Maqs 
 ```
 
 ## Adding StyleCop to Visual Studio

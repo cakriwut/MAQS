@@ -1,5 +1,5 @@
 #Action Builder
-The action builder class contains many advanced methods using interactions with selenium actions class.  This includes actions that need to be preformed synchronously.
+The action builder class contains many advanced methods using interactions with selenium actions class.  This includes actions that need to be performed synchronously.
 
 ##Hover Over an Element
 Hovers the mouse over an element.

@@ -1,19 +1,18 @@
 #Index
 1. [Introduction](#Introduction)
 2. [Application Configuration](#Application Configuration)
-    1. [General Test Configurations]()
-        1.[Wait Time & Timeout]()
-        2.[Log Configuration]()
-    2. [Selenium Test Configuration]()
-        1. [Local Browser Settings]()
-        2. [WebDriver Hint Path]()
-        3. [Remote Browser Settings]()
-3. [Test Settings]()
-    1. [Major Differences]()
-    2. [Run Settings]()
-    3. [Test Settings]()
-4. [References]()
-
+    1. [General Test Configurations](##General Test Configurations)
+        1. [Wait Time & Timeout](###Wait Time & Timeout)
+        2. [Log Configuration](###Log Configuration)
+    2. [Selenium Test Configuration](##Selenium Test Configuration)
+        1. [Local Browser Settings](###Local Browser Settings )
+        2. [WebDriver Hint Path](###WebDriver Hint Path)
+        3. [Remote Browser Settings](###Remote Browser Settings)
+3. [Test Settings](##Test Settings)
+    1. [Major Differences](##Major Differences)
+    2. [Run Settings](##Run Settings Configurations)
+    3. [Test Settings](##Test Settings Configurations)
+    
 #Introduction
 This document will cover the configurations that can be made to MAQS (Magenic Automation Quick-Start) tests.
 
@@ -35,7 +34,7 @@ The option to enable the log is located in the app.config. The options available
 
 ####Log Conditions  
 The option to set the conditions in which a log is created is set in the app.config.  
-![Conditions under which a long is created](ReadMeScreenshots/logconditions.PNG)  
+![Conditions under which a log is created](ReadMeScreenshots/logconditions.PNG)  
 
 With the default option "Yes," a test will always create a corresponding log after the test finishes. The other options are “No” and “OnFail.” “No” will never create a log under any circumstance, while “OnFail” will only create a log if the test fails.
 ####Log Output Location
@@ -69,7 +68,7 @@ The app.config file can be configured to send tests to a hub for distribution. T
 To use these configurations, Selenium Grid hub and node servers must be set up beforehand (see http://www.seleniumhq.org/docs/07_selenium_grid.jsp for more information), or pay services that will provide test environments.
 There are additional options for configuring the remote browser environment. You can specify the remote platform to use (Windows, macOS, Linux, etc.), as well as what browser version should be used for the specified remote browser.  
 ![Remote Browser Settings](ReadMeScreenshots/extendedremotebrowsersettings.PNG)  
-#Test Settings
+##Test Settings
 "There are two types of file for configuring tests. *.runsettings are used for unit tests. And *.testsettings for lab environment tests, web performance and load tests, and for customizing some types of diagnostic data adapters such as Intellitrace and event log adapters"
 https://msdn.microsoft.com/en-us/library/jj635153.aspx
 

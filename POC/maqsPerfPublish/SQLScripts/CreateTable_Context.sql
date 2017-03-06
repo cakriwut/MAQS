@@ -1,0 +1,22 @@
+USE [MAQSPerform]
+GO
+
+/****** Object:  Table [dbo].[Context]    Script Date: 1/27/2017 8:37:37 AM ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE [dbo].[Context](
+	[Context_ID] [uniqueidentifier] NOT NULL,
+	[Name] [nvarchar](max) NULL,
+ CONSTRAINT [PK_Context] PRIMARY KEY CLUSTERED 
+(
+	[Context_ID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+
+GO
+
+

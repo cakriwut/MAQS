@@ -13,10 +13,12 @@
 ## Installing an extension from Visual Studio
 1. Open Visual Studio  
 2. Got the the extensions and updates menu  
-![Extension Dev Feature](ReadMeScreenshots/Extensions.PNG)  
+![Open extensions and updates](ReadMeScreenshots/Extensions.PNG)  
 3. Find and install your extension  
-![Extension Dev Feature](ReadMeScreenshots/VisualStyleCop.PNG)  
-![Extension Dev Feature](ReadMeScreenshots/RunStyleCop.PNG)    
+![Find extension](ReadMeScreenshots/VisualStyleCop.PNG)  
+4. Restart Visual Studio
+5. Use the installed tool
+![Use extension](ReadMeScreenshots/RunStyleCop.PNG)    
 
 
 ## Other tools

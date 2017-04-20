@@ -16,8 +16,8 @@
 ![Open extensions and updates](ReadMeScreenshots/Extensions.PNG)  
 3. Find and install your extension  
 ![Find extension](ReadMeScreenshots/VisualStyleCop.PNG)  
-4. Restart Visual Studio
-5. Use the installed tool
+4. Restart Visual Studio  
+5. Use the installed tool  
 ![Use extension](ReadMeScreenshots/RunStyleCop.PNG)    
 
 

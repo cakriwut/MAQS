@@ -1,9 +1,3 @@
-Contents:
-[Development](#Development)
-[Code Review](#Code Review)
-[Testing](#Testing)
-[Builds](#Builds)
-
 # Development
 1. Find your work in VSTS  
 ![Find your work](ReadMeScreenshots/FindWork.PNG)

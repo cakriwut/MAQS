@@ -1,6 +1,6 @@
 # Basic Setup
 1. Install Visual Studio 2012 or above.  
-*You will need the Professional version or above - **Test Professional will not work***  
+*You will need the **Professional** version or above - **Test Professional will not work***  
 *In order to do extension development you will need Visual Studio 2017 with the extension development feature  
 ![Extension Dev Feature](ReadMeScreenshots/VSExDevFeature.PNG)  
 

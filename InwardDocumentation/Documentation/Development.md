@@ -1,5 +1,4 @@
-
-## Development
+# Development
 1. Find your work in VSTS  
 ![Find your work](ReadMeScreenshots/FindWork.PNG)
 2. In the work item (PBI) click the create a new branch link  
@@ -33,34 +32,3 @@
 12. Optional - Mark the pull request as auto complete and email your code reviewers  
 ![Mark auto-complete](ReadMeScreenshots/AutoComplete.PNG)    
 ![Email reviewers](ReadMeScreenshots/EmailReviewers.PNG)    
-
-## Code Review
-1. Find reviews assigned to you  
-![Find review](ReadMeScreenshots/FindCodeReviewAssignedToMe.PNG)   
-2. Open the code review  
-![Open review](ReadMeScreenshots/OpenTheCodeReview.PNG)   
-3. Pull down the feature branch code locally  
-![Get review code](ReadMeScreenshots/GetCodeReviewCode.PNG)   
-4. Review code changes  
-![Review](ReadMeScreenshots/ReviewCodeChanges.PNG)   
-5. Add review comments and questions  
-![Review feedback](ReadMeScreenshots/AddReviewCommentsAndDisucssion.PNG)  
-5. Finish the review  
-![Finish review](ReadMeScreenshots/FinishReview.PNG)  
-
-#Testing
-### CI
-Each time we try to  merge into development a build is automatically kicked off.
-If the solution fails to build or any of the tests fail we block the merge.
-### Release
-Before each release we manually run the [MAQS test suite](https://magenic.visualstudio.com/MaqsFramework/_testManagement?planId=2159&suiteId=2160&_a=tests)
-
-#Builds
-1. [Pull request](https://magenic.visualstudio.com/MaqsFramework/_build/index?context=Mine&path=%5C&definitionId=51&_a=completed) build  
- * Run with every pull request - failure will prevent code from being checked in
-2. [Nuget And Extension](https://magenic.visualstudio.com/MaqsFramework/_build/index?context=Mine&path=%5C&definitionId=54&_a=completed) build  
- * Run on demand - Creates  a build version specific package and extension for internal testing purposes (Full version)
-3. [Open Nuget And Extension](https://magenic.visualstudio.com/MaqsFramework/_build/index?context=Mine&path=%5C&definitionId=55&_a=completed) build  
- * Run on demand - Creates a build version specific package and extension for internal testing purposes (Open source version)
-4. [Nuget And Extension - Internal Release](https://magenic.visualstudio.com/MaqsFramework/_build/index?context=Mine&path=%5C&definitionId=56&_a=completed) build  
- * Run on demand - Creates a release build version (Open source and full version) 

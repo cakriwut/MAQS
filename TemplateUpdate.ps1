@@ -31,23 +31,23 @@
 
 param (
     # MAQS CURRENT VERSION
-    [string]$maqsVer = "4.0.0",
+    [string]$maqsVer = "5.0.0",
     [bool]$closedSource = $true,
-    [bool]$openSource = $false
+    [bool]$openSource = $true
 )
 
 # to avoid updating a value, set its value to ""
 
 # Which package references need to be updated and the corresponding versions
-$packageList = "Magenic.MaqsFramework", "Magenic.MaqsFramework.NunitOnly", "Newtonsoft.Json"
-$versionList = $maqsVer, $maqsVer, "9.0.1"
+$packageList = "Magenic.MaqsFramework", "Magenic.MaqsFramework.NunitOnly", "Magenic.Open.Maqs", "Magenic.Open.Maqs.NunitOnly", "Newtonsoft.Json", "Selenium.WebDriver", "Selenium.Support"
+$versionList = $maqsVer, $maqsVer, $maqsVer, $maqsVer, "9.0.1", "3.4.0", "3.4.0"
 
 # Which assembly file values need to be updated and the corresponding versions (THIS UPDATES ALL ASSEMBLYINFO.CS FILES IN THE REPO, AND SOME SHOULD BE MANUALLY REVERTED)
 $assemblyList = "AssemblyVersion", "AssemblyFileVersion"
 $assemblyVer = $maqsVer, $maqsVer
 
 # Which nuspec file values need to be updated and the corresponding versions
-$nuspecIds = "Magenic.MaqsFramework", "Magenic.MaqsFramework.NunitOnly", "Magenic.Open.Maqs.NunitOnly", "Magenic.Open.Maqs"
+$nuspecIds = "Magenic.MaqsFramework", "Magenic.MaqsFramework.NunitOnly", "Magenic.Open.Maqs", "Magenic.Open.Maqs.NunitOnly"
 $nuspecVer = $maqsVer, $maqsVer, $maqsVer, $maqsVer
 
 # Desired nuget.config intranet repository value
@@ -63,12 +63,13 @@ $vsixManVer = $maqsVer
 ###################################################################################################################
 function UpdateLine($fileText, $regexType, $searchValue, $replaceValue){
     if($regexType -eq "ProjReferences") { $regexPattern = "(<HintPath>..\\..\\packages\\" + $searchValue + ".)([\d\.]*)(\\.*</HintPath>)" }
-    if($regexType -eq "PackageReferences") { $regexPattern = "(<package id=""" + $searchValue + """ version="")([\d\.]*)("" targetFramework=""net45"" />)" }
+    if($regexType -eq "PackageReferences") { $regexPattern = "(<package id=""" + $searchValue + """ version="")([\d\.]*)("" targetFramework=""[\w]+"" />)" }
     if($regexType -eq "AssemblyReferences") { $regexPattern = "(\[assembly: " + $searchValue + "\("")([\d\.]*)(""\)\])" }
     if($regexType -eq "NuspecVersion"){ $regexPattern = "(<id>" + $searchValue + "</id>[\r\n\s]*<version>)([\d\.]*)(</version>)" }
     if($regexType -eq "HelpDocument") { $regexPattern = "(<HelpFileVersion>)([\d\.]*)(</HelpFileVersion>)" }
     if($regexType -eq "VsixManifest") { $regexPattern = "(<Identity Id=""[A-Za-z0-9 -]*"" Version="")([\d\.]*)("" Language=""en-US"" Publisher=""Magenic"" />)" }
     if($regexType -eq "NugetRepository") { $regexPattern = "(<add key=""intranet repository"" value="")([A-Za-z0-9 \\\.:/_-]*)("" />)" }
+    if($regexType -eq "DocumentationSource") {$regexPattern = "(<DocumentationSource sourceFile=""..\\packages\\" + $searchValue + ".)([\d\.]*)(\\lib\\[\w]+\\[\w\.]+"" />)" }
 
     if($regexPattern){
         $replaceValue = "`${1}" + $replaceValue + "`${3}"
@@ -118,6 +119,7 @@ function WorkFlowFunction($closedSource, $openSource){
     UpdateFiles $PSScriptRoot"\Framework" "AssemblyInfo.cs" "AssemblyReferences" $assemblyList $assemblyVer
     UpdateFiles $PSScriptRoot"\Framework" "*.nuspec" "NuspecVersion" $nuspecIds $nuspecVer
     UpdateFiles $PSScriptRoot"\Framework" "*.shfbproj" "HelpDocument" "NotNeeded" $helpFileVer
+    UpdateFiles $PSScriptRoot"\Framework" "*.shfbproj" "DocumentationSource" $packageList $versionList
 }
 
 WorkFlowFunction $closedSource $openSource

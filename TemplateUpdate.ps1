@@ -31,7 +31,7 @@
 
 param (
     # MAQS CURRENT VERSION
-    [string]$maqsVer = "5.0.0",
+    [string]$maqsVer = "4.0.0",
     [bool]$closedSource = $true,
     [bool]$openSource = $true
 )

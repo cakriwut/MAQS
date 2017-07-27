@@ -31,7 +31,7 @@
 
 param (
     # MAQS CURRENT VERSION
-    [string]$maqsVer = "4.0.0",
+    [string]$maqsVer = "4.0.2",
     [bool]$closedSource = $true,
     [bool]$openSource = $true
 )
@@ -39,8 +39,8 @@ param (
 # to avoid updating a value, set its value to ""
 
 # Which package references need to be updated and the corresponding versions
-$packageList = "Magenic.MaqsFramework", "Magenic.MaqsFramework.NunitOnly", "Magenic.Open.Maqs", "Magenic.Open.Maqs.NunitOnly", "Newtonsoft.Json", "Selenium.WebDriver", "Selenium.Support"
-$versionList = $maqsVer, $maqsVer, $maqsVer, $maqsVer, "9.0.1", "3.4.0", "3.4.0"
+$packageList = "Magenic.MaqsFramework", "Magenic.MaqsFramework.NunitOnly", "Magenic.Open.Maqs", "Magenic.Open.Maqs.NunitOnly", "Newtonsoft.Json", "Selenium.WebDriver", "Selenium.Support", "Castle.Core", "MailKit", "MimeKit", "Newtonsoft.Json", "NUnit", "NUnit3TestAdapter", "Selenium.WebDriver.ChromeDriver", "Selenium.WebDriver.GeckoDriver", "Selenium.WebDriver.GeckoDriver.Win32"
+$versionList = $maqsVer, $maqsVer, $maqsVer, $maqsVer, "10.0.2", "3.4.0", "3.4.0", "4.1.1", "1.16.2", "1.16.2", "10.0.3", "3.7.1", "3.8.0", "2.31.0", "0.18.0", "0.18.0"
 
 # Which assembly file values need to be updated and the corresponding versions (THIS UPDATES ALL ASSEMBLYINFO.CS FILES IN THE REPO, AND SOME SHOULD BE MANUALLY REVERTED)
 $assemblyList = "AssemblyVersion", "AssemblyFileVersion"

@@ -87,7 +87,7 @@ function UpdateFileContent($file, $regexType, $matchValueList, $replaceValueList
             }
         }
     }
-    if(($matchValueList -isnot [system.array]) -and ![string]::IsNullOrEmpty($nugetRepo)){
+    if(($matchValueList -isnot [system.array]) -and (![string]::IsNullOrEmpty($nugetRepo) -or $regexType -eq "VsixManifest")){
         $filetext = UpdateLine $filetext $regexType $matchValueList $replaceValueList
     }
 

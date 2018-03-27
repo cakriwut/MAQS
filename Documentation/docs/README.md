@@ -1,6 +1,6 @@
 # <img src="resources/maqslogo.ico" height="32" width="32"> MAQS
 
-### Introduction
+### Introduction to MAQS
 MAQS stands for Magenic's automation quick start.
 
 It …

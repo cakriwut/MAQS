@@ -31,7 +31,7 @@
 
 param (
     # MAQS CURRENT VERSION
-    [string]$maqsVer = "4.0.4",
+    [string]$maqsVer = "4.0.5",
     [bool]$closedSource = $true,
     [bool]$openSource = $true
 )
@@ -39,8 +39,8 @@ param (
 # to avoid updating a value, set its value to ""
 
 # Which package references need to be updated and the corresponding versions
-$packageList = "Magenic.MaqsFramework", "Magenic.MaqsFramework.NunitOnly", "Magenic.Open.Maqs", "Magenic.Open.Maqs.NunitOnly", "Newtonsoft.Json", "Selenium.WebDriver", "Selenium.Support", "Castle.Core", "MailKit", "MimeKit", "Newtonsoft.Json", "NUnit", "NUnit3TestAdapter", "Selenium.WebDriver.ChromeDriver", "Selenium.WebDriver.GeckoDriver", "Selenium.WebDriver.GeckoDriver.Win32", "Selenium.WebDriver.IEDriver", "Selenium.WebDriver.MicrosoftDriver", "Appium.WebDriver", "EWSoftware.SHFB", "EWSoftware.SHFB.NETFramework"
-$versionList = $maqsVer,                $maqsVer,                           $maqsVer,            $maqsVer,                     "10.0.3",           "3.8.0",              "3.8.0",           "4.2.1",       "1.22.0",  "1.22.0", "10.0.3",           "3.9.0", "3.9.0",             "2.34.0",                          "0.19.1",                         "0.19.1",                               "3.8.0",                       "16.16299.0",                         "3.0.0.2",          "2017.5.15.0",     "4.7"
+$packageList = "Magenic.MaqsFramework", "Magenic.MaqsFramework.NunitOnly", "Magenic.Open.Maqs", "Magenic.Open.Maqs.NunitOnly", "Newtonsoft.Json", "Selenium.WebDriver", "Selenium.Support", "Castle.Core", "MailKit", "MimeKit", "NUnit", "NUnit3TestAdapter", "Selenium.WebDriver.ChromeDriver", "Selenium.WebDriver.GeckoDriver", "Selenium.WebDriver.GeckoDriver.Win32", "Selenium.WebDriver.IEDriver", "Selenium.WebDriver.MicrosoftDriver", "Appium.WebDriver", "EWSoftware.SHFB", "EWSoftware.SHFB.NETFramework", "Microsoft.AspNet.WebApi.Client"
+$versionList = $maqsVer,                $maqsVer,                           $maqsVer,            $maqsVer,                     "11.0.2",          "3.11.0",             "3.11.0",           "4.2.1",       "2.0.2",   "2.0.2",   "3.10.1", "3.10.0",           "2.37.0",                          "0.20.0",                         "0.19.1",                               "3.11.1",                      "16.16299.0",                         "3.0.0.2",          "2017.12.30.2",    "4.7",                          "5.2.4"
 
 # Which assembly file values need to be updated and the corresponding versions (THIS UPDATES ALL ASSEMBLYINFO.CS FILES IN THE REPO, AND SOME SHOULD BE MANUALLY REVERTED)
 $assemblyList = "AssemblyVersion", "AssemblyFileVersion"

@@ -14,5 +14,8 @@
 	- [v. Element Handler](Element-Handler.md)
 
 	- [vi. Configurations](Configuration.md)
+- MAQS Utilities
+	- [i. FakerData](FakerData.md)
+	- [ii. Config](Config.md)
 - [FAQ](MAQS-FAQ.md)
 - [License](License.md)

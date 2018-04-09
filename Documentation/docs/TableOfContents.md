@@ -11,3 +11,5 @@
 ## [v. Element Handler](Element-Handler.md)
 
 ## [vi. Configurations](Configuration.md)
+
+## [vii. Config](Config.md)

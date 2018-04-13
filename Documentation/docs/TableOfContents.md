@@ -13,3 +13,5 @@
 ## [vi. Configurations](Configuration.md)
 
 ## [vii. Config](Config.md)
+
+## [viii. Faker Data](FakerData.md)

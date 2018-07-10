@@ -30,7 +30,7 @@ function Auto-Push-Magenic{
 		echo "Starting Filter-Branch Index Filter"
 		
 		#Filter and remove all files not included in the grep list
-		git filter-branch --prune-empty --index-filter 'git ls-tree -z -r --name-only --full-tree $GIT_COMMIT | grep --null-data --invert-match "^README.md$" | grep --null-data --invert-match "^LICENSE$" | grep --null-data --invert-match "^Settings.StyleCop$" | grep --null-data --invert-match "^OutwardDocumentation/Documentation" | grep --null-data --invert-match "^Framework/OpenMaqsBase.sln$" | grep --null-data --invert-match "^Framework/Parallel.testsettings$" | grep --null-data --invert-match "^Framework/VSUnitTestShim" | grep --null-data --invert-match "^Framework/UtilitiesUnitTests" | grep --null-data --invert-match "^Framework/Utilities" | grep --null-data --invert-match "^Framework/SeleniumUnitTesting" | grep --null-data --invert-match "^Framework/OpenDocumentation" | grep --null-data --invert-match "^Framework/NugetSetup" | grep --null-data --invert-match "^Framework/BaseTest" | grep --null-data --invert-match "^Framework/BaseTestUnitTests" | grep --null-data --invert-match "^Framework/BaseSeleniumTest" | xargs --null --no-run-if-empty git rm --cached -q -r' --  --all
+		git filter-branch --prune-empty --index-filter 'git ls-tree -z -r --name-only --full-tree $GIT_COMMIT | grep --null-data --invert-match "^README.md$" | grep --null-data --invert-match "^LICENSE$" | grep --null-data --invert-match "^Settings.StyleCop$" | grep --null-data --invert-match "^OutwardDocumentation/Documentation" | grep --null-data --invert-match "^Framework/OpenMaqsBase.sln$" | grep --null-data --invert-match "^Framework/Parallel.testsettings$" | grep --null-data --invert-match "^Framework/VSUnitTestShim" | grep --null-data --invert-match "^Framework/UtilitiesUnitTests" | grep --null-data --invert-match "^Framework/Utilities" | grep --null-data --invert-match "^Framework/SeleniumUnitTesting" | grep --null-data --invert-match "^Framework/OpenDocumentation" | grep --null-data --invert-match "^Framework/NugetSetup" | grep --null-data --invert-match "^Framework/BaseTest" | grep --null-data --invert-match "^Framework/BaseTestUnitTests" | grep --null-data --invert-match "^Framework/BaseSeleniumTest" | | grep --null-data --invert-match "^docs" | xargs --null --no-run-if-empty git rm --cached -q -r' --  --all
 		
 		echo "Done With Index Filter"
 		echo ""
@@ -94,6 +94,4 @@ function Auto-Push-Magenic{
 }
 
 Auto-Push-Magenic "https://magenic.visualstudio.com/DefaultCollection/MAQS/_git/MAQS" "https://github.com/Magenic/MAQS.git" "develop"
-
-
-
+Auto-Push-Magenic "https://magenic.visualstudio.com/DefaultCollection/MAQS/_git/MAQS" "https://github.com/Magenic/MAQS.git" "master"

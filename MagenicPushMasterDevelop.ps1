@@ -12,13 +12,13 @@ function Auto-Push-Magenic{
 		#Setup folders
 		cd $env:userprofile\documents
 		
-		if (Test-Path $env:userprofile\documents\MagenicOpenAutoPushVxyz)
+		if (Test-Path $env:userprofile\documents\MagenicOpenAutoPushVxyzww)
 		{
-			Remove-Item $env:userprofile\documents\MagenicOpenAutoPushVxyz -Recurse -Force
+			Remove-Item $env:userprofile\documents\MagenicOpenAutoPushVxyzww -Recurse -Force
 		}
 		
-		New-Item -Path $env:userprofile\documents -Name "MagenicOpenAutoPushVxyz" -ItemType "directory" -Force
-		cd $env:userprofile\documents\MagenicOpenAutoPushVxyz
+		New-Item -Path $env:userprofile\documents -Name "MagenicOpenAutoPushVxyzww" -ItemType "directory" -Force
+		cd $env:userprofile\documents\MagenicOpenAutoPushVxyzww
 		
 		# Clone the origin
 		git clone $sourceRepo -b $branch
@@ -81,7 +81,7 @@ function Auto-Push-Magenic{
 		Remove-Item .\MAQS -Force -Recurse
 		
 		cd $env:userprofile\documents
-		Remove-Item $env:userprofile\documents\MagenicOpenAutoPushVxyz -Recurse -Force
+		Remove-Item $env:userprofile\documents\MagenicOpenAutoPushVxyzww -Recurse -Force
 		
 		echo "Done Done, Bye"
     }
@@ -93,7 +93,7 @@ function Auto-Push-Magenic{
 	}
 }
 
-Auto-Push-Magenic "https://magenic.visualstudio.com/DefaultCollection/MaqsFramework/_git/MAQS" "https://github.com/Magenic/MAQS.git" "master"
-Auto-Push-Magenic "https://magenic.visualstudio.com/DefaultCollection/MaqsFramework/_git/MAQS" "https://github.com/Magenic/MAQS.git" "develop"
+Auto-Push-Magenic "https://magenic.visualstudio.com/DefaultCollection/MAQS/_git/MAQS" "https://github.com/Magenic/MAQS.git" "develop"
+
 
 

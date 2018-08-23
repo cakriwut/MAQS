@@ -84,6 +84,9 @@ function UpdateLine($fileText, $regexType, $searchValue, $replaceValue){
     if($regexType -eq "NugetRepository") { $regexPattern = "(<add key=""intranet repository"" value="")([A-Za-z0-9 \\\.:/_-]*)("" />)" }
     if($regexType -eq "DocumentationSource") {$regexPattern = "(<DocumentationSource sourceFile=""..\\packages\\" + $searchValue + ".)([\d\.]*)(\\lib\\[\w]+\\[\w\.]+"" />)" }
     if($regexType -eq "PackageReferenceOpen") {$regexPattern = "(<PackageReference Include=""" + $searchValue + """ version="")([\d\.]*)("" />)" }
+    if($regexType -eq "ProjVersion_") {$regexPattern = "(<Version>)([\d\.]*)(</Version>)" }
+    if($regexType -eq "ProjVersion_File") {$regexPattern = "(<FileVersion>)([\d\.]*)(</FileVersion>)" }
+    if($regexType -eq "ProjVersion_Assembly") {$regexPattern = "(<AssemblyVersion>)([\d\.]*)(</AssemblyVersion>)" }
 
     if($regexPattern){
         $replaceValue = "`${1}" + $replaceValue + "`${3}"
@@ -101,7 +104,7 @@ function UpdateFileContent($file, $regexType, $matchValueList, $replaceValueList
             }
         }
     }
-    if(($matchValueList -isnot [system.array]) -and (![string]::IsNullOrEmpty($nugetRepo) -or $regexType -eq "VsixManifest")){
+    if(($matchValueList -isnot [system.array]) -and (![string]::IsNullOrEmpty($nugetRepo) -or $regexType -eq "VsixManifest" -or $regexType -like "ProjVersion_*")){
         $filetext = UpdateLine $filetext $regexType $matchValueList $replaceValueList
     }
 
@@ -143,6 +146,9 @@ function WorkFlowFunction($closedSource, $openSource){
     UpdateFiles $PSScriptRoot"\Framework" "*.nuspec" "NuspecVersion" $nuspecIds $nuspecVer
     UpdateFiles $PSScriptRoot"\Framework" "*.shfbproj" "HelpDocument" "NotNeeded" $helpFileVer
     UpdateFiles $PSScriptRoot"\Framework" "*.shfbproj" "DocumentationSource" $packageList $versionList
+    UpdateFiles $PSScriptRoot"\Framework" "*.csproj" "ProjVersion_" "NotNeeded" $maqsVer
+    UpdateFiles $PSScriptRoot"\Framework" "*.csproj" "ProjVersion_File" "NotNeeded" $maqsVer
+    UpdateFiles $PSScriptRoot"\Framework" "*.csproj" "ProjVersion_Assembly" "NotNeeded" $maqsVer
     # .NET Core templates
     UpdateFiles $PSScriptRoot"\Extensions\CoreTemplates" "*.nuspec" "NuspecVersion" $nuspecIds $nuspecVer
 }

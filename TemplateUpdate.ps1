@@ -60,8 +60,8 @@ $assemblyList = "AssemblyVersion", "AssemblyFileVersion"
 $assemblyVer = $maqsVer, $maqsVer
 
 # Which nuspec file values need to be updated and the corresponding versions
-$nuspecIds = "Magenic.Maqs", "Magenic.Maqs.NunitOnly", "Magenic.Open.Maqs", "Magenic.Open.Maqs.NunitOnly"
-$nuspecVer = $maqsVer, $maqsVer, $maqsVer, $maqsVer
+$nuspecIds = "Magenic.Maqs", "Magenic.Maqs.NunitOnly", "Magenic.Open.Maqs", "Magenic.Open.Maqs.NunitOnly", "Magenic.Maqs.Templates", "Magenic.Maqs.SpecFlow"
+$nuspecVer = $maqsVer, $maqsVer, $maqsVer, $maqsVer, $maqsVer, $maqsVer
 
 # Desired nuget.config intranet repository value
 #$nugetRepo = "https://magenic.pkgs.visualstudio.com/_packaging/MAQS/nuget/v3/index.json"
@@ -143,6 +143,8 @@ function WorkFlowFunction($closedSource, $openSource){
     UpdateFiles $PSScriptRoot"\Framework" "*.nuspec" "NuspecVersion" $nuspecIds $nuspecVer
     UpdateFiles $PSScriptRoot"\Framework" "*.shfbproj" "HelpDocument" "NotNeeded" $helpFileVer
     UpdateFiles $PSScriptRoot"\Framework" "*.shfbproj" "DocumentationSource" $packageList $versionList
+    # .NET Core templates
+    UpdateFiles $PSScriptRoot"\Extensions\CoreTemplates" "*.nuspec" "NuspecVersion" $nuspecIds $nuspecVer
 }
 
 WorkFlowFunction $closedSource $openSource

@@ -21,6 +21,11 @@
   Author:         Magenic
   Creation Date:  07/5/2018
   Purpose/Change: Add SpecFlow extension support 
+
+  Version:        3.0
+  Author:         Magenic
+  Creation Date:  08/23/2018
+  Purpose/Change: Add .NET core template support 
   
 .EXAMPLE
   ./TemplateUpdates
@@ -38,7 +43,7 @@
 
 param (
     # MAQS CURRENT VERSION
-    [string]$maqsVer = "5.0.0",
+    [string]$maqsVer = "5.1.0",
     [bool]$closedSource = $true,
     [bool]$openSource = $true,
     [bool]$specFlowSource = $true
@@ -47,16 +52,16 @@ param (
 # to avoid updating a value, set its value to ""
 
 # Which package references need to be updated and the corresponding versions
-$packageList = "Magenic.Maqs", "Magenic.Maqs.NunitOnly", "Magenic.Open.Maqs", "Magenic.Open.Maqs.NunitOnly", "Newtonsoft.Json", "Selenium.WebDriver", "Selenium.Support", "Castle.Core", "MailKit", "MimeKit", "Newtonsoft.Json", "NUnit", "NUnit3TestAdapter", "Selenium.WebDriver.ChromeDriver", "Selenium.WebDriver.GeckoDriver", "Selenium.WebDriver.GeckoDriver.Win32", "Selenium.WebDriver.IEDriver", "Selenium.WebDriver.MicrosoftDriver", "Appium.WebDriver", "EWSoftware.SHFB", "EWSoftware.SHFB.NETFramework"
-$versionList = $maqsVer,        $maqsVer,                 $maqsVer,            $maqsVer,                     "11.0.2",          "3.13.1",              "3.13.1",          "4.3.1",       "2.0.4",   "2.0.4",   "10.0.3",          "3.10.1", "3.10.0",            "2.40.0",                          "0.21.0",                        "0.21.0",                               "3.13.0",                      "17.17134.0",                         "3.0.0.2",          "2017.5.15.0",     "4.7"
+$packageList = "Magenic.Maqs", "Magenic.Maqs.NunitOnly", "Magenic.Open.Maqs", "Magenic.Open.Maqs.NunitOnly", "Newtonsoft.Json", "Selenium.WebDriver", "Selenium.Support", "Castle.Core", "MailKit", "MimeKit",  "NUnit",  "NUnit3TestAdapter", "Selenium.WebDriver.ChromeDriver", "Selenium.WebDriver.GeckoDriver", "Selenium.WebDriver.GeckoDriver.Win32", "Selenium.WebDriver.IEDriver", "Selenium.WebDriver.MicrosoftDriver", "Appium.WebDriver", "EWSoftware.SHFB", "EWSoftware.SHFB.NETFramework"
+$versionList = $maqsVer,        $maqsVer,                 $maqsVer,            $maqsVer,                     "11.0.2",          "3.13.1",              "3.13.1",          "4.3.1",       "2.0.4",   "2.0.4",    "3.10.1", "3.10.0",            "2.40.0",                          "0.21.0",                         "0.21.0",                                "3.13.0",                     "17.17134.0",                         "3.0.0.2",          "2017.5.15.0",     "4.7"
 
 # Which assembly file values need to be updated and the corresponding versions (THIS UPDATES ALL ASSEMBLYINFO.CS FILES IN THE REPO, AND SOME SHOULD BE MANUALLY REVERTED)
 $assemblyList = "AssemblyVersion", "AssemblyFileVersion"
 $assemblyVer = $maqsVer, $maqsVer
 
 # Which nuspec file values need to be updated and the corresponding versions
-$nuspecIds = "Magenic.Maqs", "Magenic.Maqs.NunitOnly", "Magenic.Open.Maqs", "Magenic.Open.Maqs.NunitOnly"
-$nuspecVer = $maqsVer, $maqsVer, $maqsVer, $maqsVer
+$nuspecIds = "Magenic.Maqs", "Magenic.Maqs.NunitOnly", "Magenic.Open.Maqs", "Magenic.Open.Maqs.NunitOnly", "Magenic.Maqs.Templates", "Magenic.Maqs.SpecFlow"
+$nuspecVer = $maqsVer, $maqsVer, $maqsVer, $maqsVer, $maqsVer, $maqsVer
 
 # Desired nuget.config intranet repository value
 #$nugetRepo = "https://magenic.pkgs.visualstudio.com/_packaging/MAQS/nuget/v3/index.json"
@@ -78,6 +83,10 @@ function UpdateLine($fileText, $regexType, $searchValue, $replaceValue){
     if($regexType -eq "VsixManifest") { $regexPattern = "(<Identity Id=""[A-Za-z0-9 -]*"" Version="")([\d\.]*)("" Language=""en-US"" Publisher=""Magenic"" />)" }
     if($regexType -eq "NugetRepository") { $regexPattern = "(<add key=""intranet repository"" value="")([A-Za-z0-9 \\\.:/_-]*)("" />)" }
     if($regexType -eq "DocumentationSource") {$regexPattern = "(<DocumentationSource sourceFile=""..\\packages\\" + $searchValue + ".)([\d\.]*)(\\lib\\[\w]+\\[\w\.]+"" />)" }
+    if($regexType -eq "PackageReferenceOpen") {$regexPattern = "(<PackageReference Include=""" + $searchValue + """ version="")([\d\.]*)("" />)" }
+    if($regexType -eq "ProjVersion_") {$regexPattern = "(<Version>)([\d\.]*)(</Version>)" }
+    if($regexType -eq "ProjVersion_File") {$regexPattern = "(<FileVersion>)([\d\.]*)(</FileVersion>)" }
+    if($regexType -eq "ProjVersion_Assembly") {$regexPattern = "(<AssemblyVersion>)([\d\.]*)(</AssemblyVersion>)" }
 
     if($regexPattern){
         $replaceValue = "`${1}" + $replaceValue + "`${3}"
@@ -95,7 +104,7 @@ function UpdateFileContent($file, $regexType, $matchValueList, $replaceValueList
             }
         }
     }
-    if(($matchValueList -isnot [system.array]) -and (![string]::IsNullOrEmpty($nugetRepo) -or $regexType -eq "VsixManifest")){
+    if(($matchValueList -isnot [system.array]) -and (![string]::IsNullOrEmpty($nugetRepo) -or $regexType -eq "VsixManifest" -or $regexType -like "ProjVersion_*")){
         $filetext = UpdateLine $filetext $regexType $matchValueList $replaceValueList
     }
 
@@ -117,6 +126,9 @@ function WorkFlowFunction($closedSource, $openSource){
         UpdateFiles $PSScriptRoot"\Extensions\VisualStudioQatExtension" "packages.config" "PackageReferences" $packageList $versionList
         UpdateFiles $PSScriptRoot"\Extensions\VisualStudioQatExtension" "source.extension.vsixmanifest" "VsixManifest" "NotNeeded" $vsixManVer
         UpdateFiles $PSScriptRoot"\Extensions\VisualStudioQatExtension" "nuget.config" "NugetRepository" "NotNeeded" $nugetRepo
+        # .NET Core templates
+        UpdateFiles $PSScriptRoot"\Extensions\VisualStudioQatExtension" "*.csproj" "PackageReferenceOpen" $packageList $versionList
+        UpdateFiles $PSScriptRoot"\Extensions\CoreTemplates" "*.csproj" "PackageReferenceOpen" $packageList $versionList
     }
     if($openSource){
         UpdateFiles $PSScriptRoot"\Extensions\VisualStudioQatExtensionOss" "*.csproj" "ProjReferences" $packageList $versionList
@@ -134,6 +146,11 @@ function WorkFlowFunction($closedSource, $openSource){
     UpdateFiles $PSScriptRoot"\Framework" "*.nuspec" "NuspecVersion" $nuspecIds $nuspecVer
     UpdateFiles $PSScriptRoot"\Framework" "*.shfbproj" "HelpDocument" "NotNeeded" $helpFileVer
     UpdateFiles $PSScriptRoot"\Framework" "*.shfbproj" "DocumentationSource" $packageList $versionList
+    UpdateFiles $PSScriptRoot"\Framework" "*.csproj" "ProjVersion_" "NotNeeded" $maqsVer
+    UpdateFiles $PSScriptRoot"\Framework" "*.csproj" "ProjVersion_File" "NotNeeded" $maqsVer
+    UpdateFiles $PSScriptRoot"\Framework" "*.csproj" "ProjVersion_Assembly" "NotNeeded" $maqsVer
+    # .NET Core templates
+    UpdateFiles $PSScriptRoot"\Extensions\CoreTemplates" "*.nuspec" "NuspecVersion" $nuspecIds $nuspecVer
 }
 
 WorkFlowFunction $closedSource $openSource

@@ -52,8 +52,8 @@ param (
 # to avoid updating a value, set its value to ""
 
 # Which package references need to be updated and the corresponding versions
-$packageList = "Magenic.Maqs", "Magenic.Maqs.NunitOnly", "Magenic.Open.Maqs", "Magenic.Open.Maqs.NunitOnly", "Newtonsoft.Json", "Selenium.WebDriver", "Selenium.Support", "Castle.Core", "MailKit", "MimeKit",  "NUnit",  "NUnit3TestAdapter", "Selenium.WebDriver.ChromeDriver", "Selenium.WebDriver.GeckoDriver", "Selenium.WebDriver.GeckoDriver.Win32", "Selenium.WebDriver.IEDriver", "Selenium.WebDriver.MicrosoftDriver", "Appium.WebDriver",  "MSTest.TestAdapter", "MSTest.TestFramework"
-$versionList = $maqsVer,        $maqsVer,                 $maqsVer,            $maqsVer,                     "11.0.2",          "3.14.0",              "3.14.0",          "4.3.1",       "2.0.4",   "2.0.4",    "3.10.1", "3.10.0",            "2.42.0.1",                        "0.22.0",                         "0.22.0",                               "3.14.0",                      "17.17134.0",                         "4.0.0.3-beta",      "1.3.2",              "1.3.2"
+$packageList = "Magenic.Maqs", "Magenic.Maqs.NunitOnly", "Magenic.Open.Maqs", "Magenic.Open.Maqs.NunitOnly", "Magenic.Maqs.SpecFlow", "Newtonsoft.Json", "Selenium.WebDriver", "Selenium.Support", "Castle.Core", "MailKit", "MimeKit",  "NUnit",  "NUnit3TestAdapter", "Selenium.WebDriver.ChromeDriver", "Selenium.WebDriver.GeckoDriver", "Selenium.WebDriver.GeckoDriver.Win32", "Selenium.WebDriver.IEDriver", "Selenium.WebDriver.MicrosoftDriver", "Appium.WebDriver",  "MSTest.TestAdapter", "MSTest.TestFramework"
+$versionList = $maqsVer,        $maqsVer,                 $maqsVer,            $maqsVer,                      $maqsVer,               "11.0.2",          "3.14.0",              "3.14.0",          "4.3.1",       "2.0.4",   "2.0.4",    "3.10.1", "3.10.0",            "2.42.0.1",                        "0.22.0",                         "0.22.0",                               "3.14.0",                      "17.17134.0",                         "4.0.0.3-beta",      "1.3.2",              "1.3.2"
 
 # Which assembly file values need to be updated and the corresponding versions (THIS UPDATES ALL ASSEMBLYINFO.CS FILES IN THE REPO, AND SOME SHOULD BE MANUALLY REVERTED)
 $assemblyList = "AssemblyVersion", "AssemblyFileVersion"
@@ -61,7 +61,7 @@ $assemblyVer = $maqsVer, $maqsVer
 
 # Which nuspec file values need to be updated and the corresponding versions
 $nuspecIds = "Magenic.Maqs", "Magenic.Maqs.NunitOnly", "Magenic.Open.Maqs", "Magenic.Open.Maqs.NunitOnly", "Magenic.Maqs.Templates", "Magenic.Maqs.SpecFlow"
-$nuspecVer = $maqsVer, $maqsVer, $maqsVer, $maqsVer, $maqsVer, $maqsVer
+$nuspecVer = $maqsVer,       $maqsVer,                 $maqsVer,             $maqsVer,                      $maqsVer,                 $maqsVer
 
 # Desired nuget.config intranet repository value
 #$nugetRepo = "https://magenic.pkgs.visualstudio.com/_packaging/MAQS/nuget/v3/index.json"
@@ -76,6 +76,7 @@ $vsixManVer = $maqsVer
 ###################################################################################################################
 function UpdateLine($fileText, $regexType, $searchValue, $replaceValue){
     if($regexType -eq "ProjReferences") { $regexPattern = "(<HintPath>..\\..\\packages\\" + $searchValue + ".)([\d\.]*)(\\.*</HintPath>)" }
+    if($regexType -eq "ProjReferences") { $regexPattern = "(<HintPath>..\\packages\\" + $searchValue + ".)([\d\.]*)(\\.*</HintPath>)" }
     if($regexType -eq "PackageReferences") { $regexPattern = "(<package id=""" + $searchValue + """ version="")([\d\.]*)("" targetFramework=""[\w]+"" />)" }
     if($regexType -eq "AssemblyReferences") { $regexPattern = "(\[assembly: " + $searchValue + "\("")([\d\.]*)(""\)\])" }
     if($regexType -eq "NuspecVersion"){ $regexPattern = "(<id>" + $searchValue + "</id>[\r\n\s]*<version>)([\d\.]*)(</version>)" }
@@ -120,7 +121,8 @@ function UpdateFiles($directory, $fileFilter, $regexType, $matchValueList, $repl
 }
 
 # Comment out what doesn't need to be updated
-function WorkFlowFunction($closedSource, $openSource){
+function WorkFlowFunction($closedSource, $openSource, $specFlowSource){
+
     if($closedSource){
         UpdateFiles $PSScriptRoot"\Extensions\VisualStudioQatExtension" "*.csproj" "ProjReferences" $packageList $versionList
         UpdateFiles $PSScriptRoot"\Extensions\VisualStudioQatExtension" "packages.config" "PackageReferences" $packageList $versionList
@@ -153,4 +155,4 @@ function WorkFlowFunction($closedSource, $openSource){
     UpdateFiles $PSScriptRoot"\Extensions\CoreTemplates" "*.nuspec" "NuspecVersion" $nuspecIds $nuspecVer
 }
 
-WorkFlowFunction $closedSource $openSource
+WorkFlowFunction $closedSource $openSource $specFlowSource
